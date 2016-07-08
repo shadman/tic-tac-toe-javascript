@@ -65,11 +65,11 @@ function RobotPatterns() {
 
 
 	// 4 x 4 winning patterns;
-	if (game_type==4) robot_turns = [11,22,33,44];
+	if (game_type==4) robot_turns = [11,22,33,44,14,13,12,21,31,41,42,43,24,34,32,33];
 
 
 	// 5 x 5 winning patterns;
-	if (game_type==5) robot_turns = [11,12,13,14,15];
+	if (game_type==5) robot_turns = [11,22,33,44,55,15,14,13,12,51,41,31,21,35,45,25,53,52,54,42,43,32,34,23,24];
 
 	return robot_turns
 }
@@ -200,20 +200,32 @@ function markCheck(obj){
 }
 
 // Auto player robot turn for Y
-function autoTurn() {
+function autoTurn(again=false) {
+
+	is_empty_result = true;
 
 	// Ignore for X player as well as if already finished
 	if (turn === 'X' || finished === true) return false;
 
 	// Get which winning pattern match most
 	// Run according to the selected pattern
-	var robot_pattern = getAutoTurnPattern();
+	var robot_pattern = '';
+	if (again==true) robot_pattern = RobotPatterns();
+	else robot_pattern = getAutoTurnPattern(); 
+
 	for(var x = 0; x < robot_pattern.length; x++) {
 		desired_obj = document.getElementById(robot_pattern[x]);
+		//console.log('==>>'+desired_obj.value);
 		if (desired_obj.value == '') { 
 			markCheck(desired_obj); 
+			is_empty_result = false;
 			break;
-		}
+		} 
+	}
+
+	// To handle already occupied space
+	if (is_empty_result == true) {
+		autoTurn(true);
 	}
 }
 
@@ -242,9 +254,27 @@ function getMostNearestPattern(turn){
 
 	finished = false;
 	for (var x=0; x < win_patterns.length; x++) {
-		for (var y=0; y < win_patterns[x].length; y++) {
-			console.log(win_patterns[x]);
+		//for (var y=0; y < win_patterns[x].length; y++) {
+			var intersected = intersectionArray(selected, win_patterns[x]);
+			//console.log(selected);
+			//console.log(win_patterns[x]);
+			//console.log(intersected.length);
+			if (intersected.length==(win_patterns[x].length-1))
 			return win_patterns[x];
-		}
+		//}
 	}
+	return [];
+}
+
+function intersectionArray(x, y){
+    var ret = [];
+    for (var i = 0; i < x.length; i++) {
+        for (var z = 0; z < y.length; z++) {
+            if (x[i] == y[z]) {
+                ret.push(i);
+                break;
+            }
+        }
+    }
+    return ret;
 }
