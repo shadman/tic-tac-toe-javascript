@@ -2,77 +2,27 @@
 <html>
 <head>
 	<title>Tic Tac Toe</title>
-		<script>
-		var turn = 'X';
-
-		function generateGame(){
-
-			// Getting Variables
-			var game_type = document.getElementById('game_type').value;
-
-			// Clearing board for new game
-			document.getElementById('game-board').innerHTML = '';
-
-			// Generating board
-			for (x=0; x<game_type; x++){
-				for (y=0; y<game_type; y++) {
-					var button = document.createElement("input");
-					button.setAttribute("value", '');
-					button.setAttribute("name", 'grid');
-					button.setAttribute("class", 'grid-box');
-					button.setAttribute("type", 'button');
-					//button.setAttribute("onclick", alert("blabla"));
-					document.getElementById('game-board').appendChild(button);
-				}
-				var breakline = document.createElement("br");
-					document.getElementById('game-board').appendChild(breakline);
-			}
-
-		}
-	</script>
-	<style type="text/css">
-		body {
-			margin: 0 auto;
-		}
-		.game-area {
-			margin:0 auto;
-			text-align: center;
-			padding-top: 20px; 
-		}
-
-		.game-options select, .game-options input  {
-			border: 1px solid #333;
-			padding: 10px;
-		}
-		.game-board {
-			margin-top: 50px;
-			padding: 10px;
-		}
-		.grid-box {
-			font-size: 40px;
-			padding: 15px 35px;
-			background-color: #FCFCFC;
-		}
-	</style>
+	<script type="text/javascript" src="js/scripts.js"></script>
+	<link rel="stylesheet" href="styles/style.css">
 </head>
 <body>
 
-<div class="game-area">
+	<div class="game-area">
 
-	<div class="game-options">
-		<select name="game_type" id="game_type">
-			<option value="3">3 x 3</option>
-			<option value="4">4 x 4</option>
-			<option value="5">5 x 5</option>
-		</select>
-		<input type="submit" value="Start Game" onclick="generateGame()">
+		<div class="game-options">
+			<select name="game_type" id="game_type">
+				<option value="3">3 x 3 Board</option>
+				<option value="4">4 x 4 Board</option>
+				<option value="5">5 x 5 Board</option>
+			</select>
+			<input type="submit" value="Start Game" onclick="generateGame()">
+		</div>
+
+		<div id="game-board" class="game-board">
+			Please select your game from above, then press 'Start Game'.
+		</div>
+
 	</div>
-
-	<div id="game-board" class="game-board">
-		Please select your game from above, then press 'Start Game'.
-	</div>
-
-</div>
 
 </body>
 </html>

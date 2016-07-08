@@ -1,0 +1,23 @@
+body {
+	margin: 0 auto;
+	font-family: Arial;
+}
+.game-area {
+	margin:0 auto;
+	text-align: center;
+	padding-top: 20px; 
+}
+
+.game-options select, .game-options input  {
+	border: 1px solid #333;
+	padding: 10px;
+}
+.game-board {
+	margin-top: 50px;
+	padding: 10px;
+}
+.grid-box {
+	font-size: 40px;
+	padding: 15px 35px;
+	background-color: #FCFCFC;
+}
