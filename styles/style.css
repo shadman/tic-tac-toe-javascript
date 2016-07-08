@@ -2,6 +2,15 @@ body {
 	margin: 0 auto;
 	font-family: Arial;
 }
+
+input::-moz-focus-inner { 
+  border: 0; 
+}
+
+a {
+   outline: 0;
+}
+
 .game-area {
 	margin:0 auto;
 	text-align: center;
@@ -12,29 +21,25 @@ body {
 	border: 1px solid #333;
 	padding: 10px;
 	margin-right: 10px;
+	outline: none;
 }
 .game-board {
 	margin-top: 50px;
 	padding: 10px;
 }
-.grid-box {
+
+.grid-box, .green-player, .red-player {
 	font-size: 40px;
 	padding: 15px 25px;
 	width: 90px;
 	background-color: #FCFCFC;
+	outline: none;
 }
-
 .green-player {
-	font-size: 40px;
-	padding: 15px 25px;
-	width: 90px;
 	background-color: green;
 	color: #FFF;
 }
 .red-player {
-	font-size: 40px;
-	padding: 15px 25px;
-	width: 90px;
 	background-color: red;
 	color: #FFF;
 }
