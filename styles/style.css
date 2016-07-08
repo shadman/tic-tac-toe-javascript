@@ -11,6 +11,7 @@ body {
 .game-options select, .game-options input  {
 	border: 1px solid #333;
 	padding: 10px;
+	margin-right: 10px;
 }
 .game-board {
 	margin-top: 50px;
@@ -18,6 +19,22 @@ body {
 }
 .grid-box {
 	font-size: 40px;
-	padding: 15px 35px;
+	padding: 15px 25px;
+	width: 90px;
 	background-color: #FCFCFC;
+}
+
+.green-player {
+	font-size: 40px;
+	padding: 15px 25px;
+	width: 90px;
+	background-color: green;
+	color: #FFF;
+}
+.red-player {
+	font-size: 40px;
+	padding: 15px 25px;
+	width: 90px;
+	background-color: red;
+	color: #FFF;
 }
