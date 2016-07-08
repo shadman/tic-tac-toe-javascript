@@ -2,6 +2,8 @@
 var turn = 'X';
 var game_type = 3;
 var total_turns = 0;
+var robot = true;
+var finished = false;
 
 var selections = new Array(); 
 selections['X'] = new Array();
@@ -10,8 +12,9 @@ selections['Y'] = new Array();
 // Resetting parameters on reseting game
 function resetParams() {
 	turn = 'X';
-	game_type = '3';
+	game_type = 3;
 	total_turns = 0;
+	robot = true;
 
 	selections['X'] = new Array();
 	selections['Y'] = new Array();
@@ -53,21 +56,38 @@ function winnerPatterns() {
 	return wins
 }
 
+// Robot patterns, for auto players
+function RobotPatterns() {
+	var robot_turns = Array();
+
+	// 3 x 3 winning patterns;
+	if (game_type==3) robot_turns = [22,11,33,13,21,23,12,32,31];
+
+
+	// 4 x 4 winning patterns;
+	if (game_type==4) robot_turns = [11,22,33,44];
+
+
+	// 5 x 5 winning patterns;
+	if (game_type==5) robot_turns = [11,12,13,14,15];
+
+	return robot_turns
+}
+
 // Checking winner of selected type on selection
 function checkWinner() {
-
-	var finished = false;
 
 	var selected = selections[turn].sort();
 	var win_patterns = winnerPatterns();
 
+	finished = false;
 	for (var x=0; x < win_patterns.length; x++) {
 		
 		if (finished != true) { 
 			finished = isWinner(win_patterns[x], selections[turn]);
 
 			if ( finished === true ) {
-				alert(turn+' Won !!');
+				alert('Player '+turn+' Won !!');
 
 				// On winning disabled all boxes
 				disableAllBoxes();
@@ -78,7 +98,7 @@ function checkWinner() {
 
 	// If no one wins; declare DRAW
 	if ( ( total_turns == (game_type*game_type) ) && finished === false ) { 
-		alert('Draw!');
+		alert('Game Draw!');
 		disableAllBoxes(); 
 	}
 }
@@ -95,7 +115,7 @@ function isWinner(win_pattern, selections){
 			}
 		}
 	}
-	console.log(match);
+
 	if (match==win_pattern.length) return true;
 
 	return false;
@@ -111,6 +131,13 @@ function disableAllBoxes() {
 
 }
 
+// Resetting autoplayer to true on change games
+function resetAIButton() {
+	var checkbox = document.getElementById('robot'); 	
+	checkbox.checked = 'checked';
+}
+
+
 // Generating a board for new game
 function generateGame(){
 
@@ -120,12 +147,17 @@ function generateGame(){
 	// Getting Variables to update global param
 	game_type = Number(document.getElementById('game_type').value);
 
+	// is auto player selected 
+	robot_object = document.getElementById('robot'); 
+	if (robot_object.checked === true) robot = true; 
+	else  robot = false;
+
 	// Clearing board for new game
 	document.getElementById('game-board').innerHTML = '';
 
 	// Generating board
-	for (var row=1; row<=game_type; row++){
-		for (var col=1; col<=game_type; col++) {
+	for (var row = 1; row <= game_type; row++){
+		for (var col = 1; col <= game_type; col++) {
 			var unique_name = 'grid-'+row+'-'+col;
 			var unique_id = row+''+col;
 			var button = document.createElement("input");
@@ -138,6 +170,7 @@ function generateGame(){
 			button.setAttribute("onclick", "markCheck(this)");
 			document.getElementById('game-board').appendChild(button);
 		}
+
 		var breakline = document.createElement("br");
 			document.getElementById('game-board').appendChild(breakline);
 	}
@@ -158,13 +191,60 @@ function markCheck(obj){
 
 	obj.setAttribute("disabled", 'disabled');
 	selections[turn].push(Number(obj.id));
-	console.log(turn+''+obj.id);
 
 	checkWinner();
 	changeTurn();
 
+	// if auto player selected
+	if (robot===true) autoTurn();
 }
 
+// Auto player robot turn for Y
+function autoTurn() {
 
+	// Ignore for X player as well as if already finished
+	if (turn === 'X' || finished === true) return false;
 
+	// Get which winning pattern match most
+	// Run according to the selected pattern
+	var robot_pattern = getAutoTurnPattern();
+	for(var x = 0; x < robot_pattern.length; x++) {
+		desired_obj = document.getElementById(robot_pattern[x]);
+		if (desired_obj.value == '') { 
+			markCheck(desired_obj); 
+			break;
+		}
+	}
+}
 
+// Getting most nearest winning and lossing pattern
+function getAutoTurnPattern() {
+
+	var pattern = [];
+	pattern = getMostNearestPattern('Y');
+	if (pattern.length <= 0) {
+		pattern = getMostNearestPattern('X');
+		if (pattern.length <= 0) {
+			pattern = RobotPatterns();
+		}
+	}
+
+	return pattern;
+	
+}
+
+function getMostNearestPattern(turn){
+
+	var matches = 0;
+
+	var selected = selections[turn].sort();
+	var win_patterns = winnerPatterns();
+
+	finished = false;
+	for (var x=0; x < win_patterns.length; x++) {
+		for (var y=0; y < win_patterns[x].length; y++) {
+			console.log(win_patterns[x]);
+			return win_patterns[x];
+		}
+	}
+}

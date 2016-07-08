@@ -11,6 +11,10 @@ a {
    outline: 0;
 }
 
+.submit-button {
+	margin-top: 20px;
+	width: 100px;
+}
 .game-area {
 	margin:0 auto;
 	text-align: center;

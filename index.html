@@ -10,12 +10,14 @@
 	<div class="game-area">
 
 		<div class="game-options">
-			<select name="game_type" id="game_type">
+			<select name="game_type" id="game_type" onchange="resetAIButton()">
 				<option value="3">3 x 3 Board</option>
 				<option value="4">4 x 4 Board</option>
 				<option value="5">5 x 5 Board</option>
 			</select>
-			<input type="submit" value="Start Game" onclick="generateGame()">
+			
+			<input type="checkbox" name="robot" checked="true" id="robot"> With Computer? <br/>
+			<input type="submit" value="Start Game" onclick="generateGame()" class="submit-button"> 
 		</div>
 
 		<div id="game-board" class="game-board">
