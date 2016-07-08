@@ -34,6 +34,14 @@ function winnerPatterns() {
 						 		[11,22,33], [13,22,31]
 						 	];
 
+
+	// 4 x 4 winning patterns;
+	if (game_type==4) wins = [ 
+								[11,12,13,14], [21,22,23,24],[31,32,33,34],[41,42,43,44],
+						 		[11,21,31,41],[12,22,32,42],[13,23,33,43],[14,24,34,44],
+						 		[14,23,32,41],[11,22,33,44]
+						 	];
+
 	return wins
 }
 
@@ -51,7 +59,7 @@ function checkWinner() {
 			finished = isWinner(win_patterns[x], selections[turn]);
 
 			if ( finished === true ) {
-				alert(turn+' Wins !!');
+				alert(turn+' Won !!');
 
 				// On winning disabled all boxes
 				disableAllBoxes();
@@ -61,7 +69,10 @@ function checkWinner() {
 	}
 
 	// If no one wins; declare DRAW
-	if ( (total_turns == game_type*3) && finished === false ) alert('Draw!');
+	if ( ( total_turns == (game_type*game_type) ) && finished === false ) { 
+		alert('Draw!');
+		disableAllBoxes(); 
+	}
 }
 
 // Verifying each selections with winning pattern
