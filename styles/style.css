@@ -47,3 +47,11 @@ a {
 	background-color: red;
 	color: #FFF;
 }
+
+.score-card {
+	font-weight: bold;
+}
+.score-card span {
+	font-weight: normal;
+}
+

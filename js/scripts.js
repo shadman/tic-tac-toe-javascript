@@ -9,6 +9,9 @@ var selections = new Array();
 	selections['X'] = new Array();
 	selections['Y'] = new Array();
 
+var scores = new Array(); 
+	scores['X'] = 0;
+	scores['Y'] = 0;
 
 // Resetting parameters on reseting game
 function resetParams() {
@@ -93,10 +96,15 @@ function checkWinner() {
 			finished = isWinner(win_patterns[x], selections[turn]);
 
 			if ( finished === true ) {
-				alert('Player '+turn+' Won !!');
+				
+				// Updating score card
+				scoreUpdate(turn);
 
 				// On winning disabled all boxes
 				disableAllBoxes();
+
+				alert('Player '+turn+' Won !!');
+				
 				break;
 			} 
 		}
@@ -235,11 +243,6 @@ function autoTurn(again=false) {
 		} 
 	}
 
-	// To handle already occupied space
-	if (is_empty_result == true && finished === false) {
-		console.log('required;'+1);
-		//autoTurn(true);
-	}
 }
 
 
@@ -304,4 +307,10 @@ function intersectionArray(x, y){
     }
     return response;
 
+}
+
+
+function scoreUpdate(turn){
+	scores[turn]++;
+	document.getElementById('score-'+turn).innerHTML = scores[turn];
 }
