@@ -180,7 +180,7 @@ function generateGame(){
 			var unique_id = row+''+col;
 			var button = document.createElement("input");
 
-			button.setAttribute("value", '');
+			button.setAttribute("value", ' ');
 			button.setAttribute("id", unique_id);
 			button.setAttribute("name", unique_name);
 			button.setAttribute("class", 'grid-box');
@@ -236,7 +236,7 @@ function autoTurn(again=false) {
 	for(var x = 0; x < robot_pattern.length; x++) {
 		var desired_obj = document.getElementById(robot_pattern[x]);
 		//console.log('==>>'+desired_obj.value);
-		if (desired_obj.value == '') { 
+		if (desired_obj.value == '' || desired_obj.value == ' ') { 
 			markCheck(desired_obj); 
 			is_empty_result = false;
 			break;
@@ -280,7 +280,7 @@ function getMostNearestPattern(turn){
 			// if any position is found empty then return that pattern; otherwise will check another one from list
 			for (var y=0; y < win_patterns[x].length; y++) {
 				obj = document.getElementById(win_patterns[x][y]);
-				if (obj.value == '') {
+				if (obj.value == '' || obj.value == ' ') {
 					// Return pattern if got an empty; otherwise will match others 
 					return win_patterns[x];	
 				}
