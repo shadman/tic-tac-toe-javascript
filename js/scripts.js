@@ -9,16 +9,19 @@ var selections = new Array();
 selections['X'] = new Array();
 selections['Y'] = new Array();
 
+
 // Resetting parameters on reseting game
 function resetParams() {
 	turn = 'X';
 	game_type = 3;
 	total_turns = 0;
 	robot = true;
+	finished = false;
 
 	selections['X'] = new Array();
 	selections['Y'] = new Array();
 }
+
 
 // Change turn after another
 function changeTurn(){
@@ -26,7 +29,8 @@ function changeTurn(){
 	else turn = 'X';
 }
 
-// Winner patterns, match selected patterns on every turn
+
+// Winner patterns, match selected patterns on every turn for every player
 function winnerPatterns() {
 	var wins = Array();
 
@@ -56,8 +60,9 @@ function winnerPatterns() {
 	return wins
 }
 
-// Robot patterns, for auto players
-function RobotPatterns() {
+
+// Robot patterns, for auto players of every game board
+function DefaultRobotPatterns() {
 	var robot_turns = Array();
 
 	// 3 x 3 winning patterns;
@@ -73,6 +78,7 @@ function RobotPatterns() {
 
 	return robot_turns
 }
+
 
 // Checking winner of selected type on selection
 function checkWinner() {
@@ -103,6 +109,7 @@ function checkWinner() {
 	}
 }
 
+
 // Verifying each selections with winning pattern
 function isWinner(win_pattern, selections){
 
@@ -121,6 +128,7 @@ function isWinner(win_pattern, selections){
 	return false;
 }
 
+
 // Disable all boxes after winning/draw
 function disableAllBoxes() {
 
@@ -130,6 +138,7 @@ function disableAllBoxes() {
 	}
 
 }
+
 
 // Resetting autoplayer to true on change games
 function resetAIButton() {
@@ -177,6 +186,7 @@ function generateGame(){
 
 }
 
+
 // Selecting check for desired position
 function markCheck(obj){
 
@@ -199,6 +209,7 @@ function markCheck(obj){
 	if (robot===true) autoTurn();
 }
 
+
 // Auto player robot turn for Y
 function autoTurn(again=false) {
 
@@ -210,7 +221,7 @@ function autoTurn(again=false) {
 	// Get which winning pattern match most
 	// Run according to the selected pattern
 	var robot_pattern = '';
-	if (again==true) robot_pattern = RobotPatterns();
+	if (again==true) robot_pattern = DefaultRobotPatterns();
 	else robot_pattern = getAutoTurnPattern(); 
 
 	for(var x = 0; x < robot_pattern.length; x++) {
@@ -229,6 +240,7 @@ function autoTurn(again=false) {
 	}
 }
 
+
 // Getting most nearest winning and lossing pattern
 function getAutoTurnPattern() {
 
@@ -237,7 +249,7 @@ function getAutoTurnPattern() {
 	if (pattern.length <= 0) {
 		pattern = getMostNearestPattern('X');
 		if (pattern.length <= 0) {
-			pattern = RobotPatterns();
+			pattern = DefaultRobotPatterns();
 		}
 	}
 
@@ -245,6 +257,8 @@ function getAutoTurnPattern() {
 	
 }
 
+
+// Getting most applicable pattern for any player
 function getMostNearestPattern(turn){
 
 	var matches = 0;
@@ -266,15 +280,20 @@ function getMostNearestPattern(turn){
 	return [];
 }
 
+
+// Return intersaction result by comparing 
+// Players' turns and Winning patterns
 function intersectionArray(x, y){
-    var ret = [];
+
+    var response = [];
     for (var i = 0; i < x.length; i++) {
         for (var z = 0; z < y.length; z++) {
             if (x[i] == y[z]) {
-                ret.push(i);
+                response.push(i);
                 break;
             }
         }
     }
-    return ret;
+    return response;
+
 }
