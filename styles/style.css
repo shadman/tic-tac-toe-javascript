@@ -13,7 +13,7 @@ a {
 
 .submit-button {
 	margin-top: 20px;
-	width: 100px;
+	width: 280px;
 }
 .game-area {
 	margin:0 auto;
@@ -21,6 +21,10 @@ a {
 	padding-top: 20px; 
 }
 
+.game-options {
+	border-bottom: 1px dashed #CFCFCF;
+	padding-bottom: 20px;
+}
 .game-options select, .game-options input  {
 	border: 1px solid #333;
 	padding: 10px;
@@ -33,9 +37,9 @@ a {
 }
 
 .grid-box, .green-player, .red-player {
-	font-size: 40px;
+	font-size: 35px;
 	padding: 15px 25px;
-	width: 90px;
+	width: 85px;
 	background-color: #FCFCFC;
 	outline: none;
 }
