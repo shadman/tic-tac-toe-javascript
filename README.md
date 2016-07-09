@@ -14,6 +14,7 @@ https://tic-tac-toe-board.herokuapp.com/
 - Can play with your friends [2 player].
 - 'Player X' is a 1st player while 'Player Y' is a 2nd player.
 - Added a score card for both players for a session.
+- Tested in Firefox and Chrome
 
 
 ## Deployment:
