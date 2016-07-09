@@ -20,3 +20,8 @@ https://tic-tac-toe-board.herokuapp.com/
 ## Deployment:
 
 As this is pure javascript game application, so don't need to install any software for this, just extract/clone repo anywhere and double click your 'index.html' file to open a game on your browser.
+
+
+Cheers ! 
+
+Good Luck !!
