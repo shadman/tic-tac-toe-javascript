@@ -6,8 +6,8 @@ var robot = true;
 var finished = false;
 
 var selections = new Array(); 
-selections['X'] = new Array();
-selections['Y'] = new Array();
+	selections['X'] = new Array();
+	selections['Y'] = new Array();
 
 
 // Resetting parameters on reseting game
@@ -105,6 +105,7 @@ function checkWinner() {
 	// If no one wins; declare DRAW
 	if ( ( total_turns == (game_type*game_type) ) && finished === false ) { 
 		alert('Game Draw!');
+		finished = true;
 		disableAllBoxes(); 
 	}
 }
@@ -225,7 +226,7 @@ function autoTurn(again=false) {
 	else robot_pattern = getAutoTurnPattern(); 
 
 	for(var x = 0; x < robot_pattern.length; x++) {
-		desired_obj = document.getElementById(robot_pattern[x]);
+		var desired_obj = document.getElementById(robot_pattern[x]);
 		//console.log('==>>'+desired_obj.value);
 		if (desired_obj.value == '') { 
 			markCheck(desired_obj); 
@@ -235,8 +236,9 @@ function autoTurn(again=false) {
 	}
 
 	// To handle already occupied space
-	if (is_empty_result == true) {
-		autoTurn(true);
+	if (is_empty_result == true && finished === false) {
+		console.log('required;'+1);
+		//autoTurn(true);
 	}
 }
 
@@ -268,14 +270,20 @@ function getMostNearestPattern(turn){
 
 	finished = false;
 	for (var x=0; x < win_patterns.length; x++) {
-		//for (var y=0; y < win_patterns[x].length; y++) {
-			var intersected = intersectionArray(selected, win_patterns[x]);
-			//console.log(selected);
-			//console.log(win_patterns[x]);
-			//console.log(intersected.length);
-			if (intersected.length==(win_patterns[x].length-1))
-			return win_patterns[x];
-		//}
+		var intersected = intersectionArray(selected, win_patterns[x]);
+
+		if ( intersected.length==(win_patterns[x].length-1) ) { //return win_patterns[x];
+
+			// if any position is found empty then return that pattern; otherwise will check another one from list
+			for (var y=0; y < win_patterns[x].length; y++) {
+				obj = document.getElementById(win_patterns[x][y]);
+				if (obj.value == '') {
+					// Return pattern if got an empty; otherwise will match others 
+					return win_patterns[x];	
+				}
+			}
+		}
+
 	}
 	return [];
 }
@@ -289,7 +297,7 @@ function intersectionArray(x, y){
     for (var i = 0; i < x.length; i++) {
         for (var z = 0; z < y.length; z++) {
             if (x[i] == y[z]) {
-                response.push(i);
+                response.push(x[i]);
                 break;
             }
         }
