@@ -73,7 +73,7 @@ function DefaultRobotPatterns() {
 
 
 	// 4 x 4 winning patterns;
-	if (game_type==4) robot_turns = [11,22,33,44,14,13,12,21,31,41,42,43,24,34,32,33];
+	if (game_type==4) robot_turns = [11,22,33,44,14,13,12,21,31,41,42,43,24,34,32,23];
 
 
 	// 5 x 5 winning patterns;
